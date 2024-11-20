@@ -15,7 +15,7 @@
   }
   
   .listing-location::before {
-    content: url('/assets/location-pin.svg') / '';
+    content: url('/location-pin.svg') / '';
   }
   
   .listing-location {
