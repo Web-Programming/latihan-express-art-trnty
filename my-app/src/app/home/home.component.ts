@@ -8,15 +8,17 @@ import { HousingService } from '../housing.service';
   standalone: true,
   imports: [CommonModule, HousingLocationComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  housingLocationList : HousingLocation[] = []
-  housingService: HousingService = inject(HousingService)
+  housingLocationList: HousingLocation[] = [];
+  housingService: HousingService = inject(HousingService);
 
-  constructor(){
-    this.housingService.getAllHousingLocations().then((housingLocationList : HousingLocation[]) =>{
-      this.housingLocationList = housingLocationList;
-    });
+  constructor() {
+    this.housingService
+      .getAllHousingLocations()
+      .then((housingLocationList: HousingLocation[]) => {
+        this.housingLocationList = housingLocationList;
+      });
   }
 }
