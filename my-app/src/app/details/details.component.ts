@@ -26,10 +26,16 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
         </ul>
       </section>
       <section class="listing-apply">
-        <h2 class="section-heading">Apply now to live here</h2>
-        <form [formGroup]="applyForm" (submit) = "submitApplication()">
+        <h1 class="section-heading">Apply to live here</h1>
+        <form [formGroup]="applyForm" (submit)="submitApplication()">
           <label for="first-name">First Name</label>
-          <input id="first-name" type="text" formControlName="firstName">
+          <input type="text" id="first-name" formControlName="firstName" placeholder="Input first name">
+          <label for="last-name">Last Name</label>
+          <input type="text" id="last-name" formControlName="lastName" placeholder="Input last name">
+          
+          <label for="email">Email</label>
+          <input type="email" id="email" formControlName="email" placeholder="Input email">
+          <button type="submit" class="primary">Apply</button>
         </form>
       </section>
     </article>
@@ -42,14 +48,23 @@ export class DetailsComponent {
   housingService: HousingService = inject (HousingService);
   housingLocation : HousingLocation | undefined;
   applyForm = new FormGroup({
-    firstName : new FormControl('')
+    firstName : new FormControl(''),
+    lastName: new FormControl(''),
+    email: new FormControl('')
   })
   constructor() {
     this.housingLocationId = Number(this.route.snapshot.params['id'])
-    this.housingLocation = this.housingService.getHousingLocationById(this.housingLocationId)
+    this.housingService.getHousingLocationById(this.housingLocationId)
+    .then(housingLocation => {
+      this.housingLocation = housingLocation;
+    })
     console.log(this.housingLocation);
   }
   submitApplication(){
-    console.log(this.applyForm.value.firstName)
+     this.housingService.submitApplication(
+      this.applyForm.value.firstName ?? '',
+      this.applyForm.value.lastName ?? '',
+      this.applyForm.value.email ?? '',
+    )
   }
 }

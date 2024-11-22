@@ -9,10 +9,10 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule, CommonModule],
   template: `
       <section class="listing">
-      <img class="listing-photo" [src]="housingLocation.photo" alt="Exterior photo of {{housingLocation.name}}">
+      <img class="listing-photo" [src]="baseUrl + housingLocation.photo" alt="Exterior photo of {{housingLocation.name}}">
       <h2 class="listing-heading">{{ housingLocation.name }}</h2>
       <p class="listing-location">{{ housingLocation.city}}, {{housingLocation.state }}</p>
-      <p style="padding: 0 0 10px 20px;">{{ housingLocation.availableUnits}} Unit(s)</p>
+      <p style="padding:0 0 10px 20px;">{{ housingLocation.availableUnits}} Unit(s)</p>
       <a [routerLink]="['/details', housingLocation.id]">Learn More</a>
     </section>
   `,
@@ -20,4 +20,5 @@ import { RouterModule } from '@angular/router';
 })
 export class HousingLocationComponent {
   @Input() housingLocation!: HousingLocation;
+  baseUrl = 'https://angular.io/assets/images/tutorials/faa';
 }

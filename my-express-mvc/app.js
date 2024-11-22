@@ -26,10 +26,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next)=> {
+  res.setHeader('Acces-Control-Allow-Origin', '*'); 
+  //Allow All Domains
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/mahasiswa', mhsRouter);
 app.use('/housing', housingRouter);
+
+//Letakkan Dibawah use Routes
+/*app.use((req, res, next)=> {
+  res.setHeader('Acces-Control-Allow-Origin', '*'); 
+  //Allow All Domains
+  next();
+});*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
