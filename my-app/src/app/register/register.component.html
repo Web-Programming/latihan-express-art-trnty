@@ -1,15 +1,43 @@
 <section class="register">
-  <h1 class="section-heading">Register to our platform</h1>
+  <h1 class="auth-heading">Register to our platform</h1>
+  <div class="alert-danger" *ngIf="formError">{{formError}}</div>
   <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
     <label for="name">Name</label>
     <input type="text" id="name" formControlName="name" placeholder="Input your name">
+    <div
+        *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+        class="alert-danger"
+      >
+      <div class="alert-danger" *ngIf="name?.errors?.['required']">Name is required.</div>
+      <div class="alert-danger" *ngIf="name?.errors?.['minlength']">
+        Name must be at least 2 characters long.
+      </div>
+    </div>
 
     <label for="email">Email</label>
     <input type="email" id="email" formControlName="email" placeholder="Input your email">
+    <div
+        *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+        class="alert-danger"
+      >
+      <div class="alert-danger" *ngIf="email?.errors?.['required']">Email is required.</div>
+      <div class="alert-danger" *ngIf="email?.errors?.['email']">
+        Email must be a valid email address
+      </div>
+    </div>
+
 
     <label for="password">Password</label>
     <input type="password" id="password" formControlName="password" placeholder="Input your password">
-
+    <div
+        *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+        class="alert-danger"
+      >
+      <div class="alert-danger" *ngIf="password?.errors?.['required']">Password is required.</div>
+      <div class="alert-danger" *ngIf="password?.errors?.['minlength']">
+        Name must be at least 6 characters long.
+      </div>
+    </div>
     <button type="submit" class="primary" [disabled]="registerForm.invalid">Register</button>
   </form>
 </section>
